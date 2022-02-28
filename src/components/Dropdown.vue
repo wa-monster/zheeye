@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@vue/runtime-core'
+import { defineComponent, ref, watch } from '@vue/runtime-core'
 import useClickOutside from '@/hooks/useClickOutside'
 export default defineComponent({
   name: 'Dropdown',
@@ -32,6 +32,11 @@ export default defineComponent({
     }
     const isClickOutside = useClickOutside(dropdownRef)
 
+    watch(isClickOutside, () => {
+      if (isOpen.value && isClickOutside.value) {
+        isOpen.value = false
+      }
+    })
     return {
       isOpen,
       toggleOpen,
