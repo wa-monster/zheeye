@@ -1,18 +1,23 @@
 <template>
   <div class="dropdown" ref="dropdownRef">
-    <a href="#" class="btn btn-outline-light my-2 dropdown-toggle" @click="toggleOpen">{{title}}</a>
-    <ul class="dropdown-menu" :style="{display: isOpen?'block':'none'}">
+    <a
+      href="#"
+      class="btn btn-outline-light my-2 dropdown-toggle"
+      @click="toggleOpen"
+      >{{ title }}</a
+    >
+    <ul class="dropdown-menu" :style="{ display: isOpen ? 'block' : 'none' }">
       <slot></slot>
     </ul>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onUnmounted, ref } from '@vue/runtime-core'
+import { defineComponent, ref } from '@vue/runtime-core'
+import useClickOutside from '@/hooks/useClickOutside'
 export default defineComponent({
   name: 'Dropdown',
-  components: {
-  },
+  components: {},
   props: {
     title: {
       type: String,
@@ -25,20 +30,8 @@ export default defineComponent({
     const toggleOpen = () => {
       isOpen.value = !isOpen.value
     }
-    const handler = (e:MouseEvent) => {
-      if (dropdownRef.value) {
-        console.log(!dropdownRef.value.contains(e.target as Node))
-        if (!dropdownRef.value.contains(e.target as Node)) {
-          isOpen.value = false
-        }
-      }
-    }
-    onMounted(() => {
-      document.addEventListener('click', handler)
-    })
-    onUnmounted(() => {
-      document.removeEventListener('click', handler)
-    })
+    const isClickOutside = useClickOutside(dropdownRef)
+
     return {
       isOpen,
       toggleOpen,
@@ -49,5 +42,4 @@ export default defineComponent({
 </script>
 
 <style>
-
 </style>
