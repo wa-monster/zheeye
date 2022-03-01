@@ -17,8 +17,8 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from '@vue/runtime-core'
-import Dropdown from '@/components/Dropdown.vue'
-import DropdownItem from '@/components/DropdownItem.vue'
+import Dropdown from '@/components/Dropdown/Dropdown.vue'
+import DropdownItem from '@/components/Dropdown/DropdownItem.vue'
 
 export interface UserProps {
   isLogin:boolean;
