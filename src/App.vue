@@ -39,8 +39,8 @@ import { defineComponent, ref } from 'vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import ColumnList, { ColumnProps } from '@/components/ColumnList.vue'
 import GlobalHeader, { UserProps } from '@/components/GlobalHeader.vue'
-import ValidateInput, { RulesProp } from '@/components/Form/ValidateInput.vue'
 import ValidateForm from '@/components/Form/ValidateForm.vue'
+import ValidateInput, { RulesProp } from '@/components/Form/ValidateInput.vue'
 const testData: ColumnProps[] = [
   {
     id: 1,
@@ -96,19 +96,19 @@ export default defineComponent({
     ValidateInput,
     ValidateForm
   },
-  setup (props, context) {
+  setup () {
     const inputRef = ref<any>()
-    const emailValue = ref('123@123.com')
+    const emailValue = ref('')
     const emailRules:RulesProp = [
       { type: 'required', message: '电子邮箱地址不能为空' },
       { type: 'email', message: '请输入正确的电子邮箱格式' }
     ]
-    const passedValue = ref('123')
+    const passedValue = ref('')
     const passedRules:RulesProp = [
       { type: 'required', message: '密码不能为空' }
     ]
-    const onSubmit = () => {
-      inputRef.value.validateInput()
+    const onSubmit = (result:boolean) => {
+      console.log(result)
     }
     return {
       list: testData,
