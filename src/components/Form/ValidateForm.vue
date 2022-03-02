@@ -10,14 +10,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/runtime-core'
-
+import { defineComponent, onMounted } from '@vue/runtime-core'
+import mitt from 'mitt'
+export const emitter = mitt()
 export default defineComponent({
   emits: ['form-submit'],
   setup (props, context) {
     const submitForm = () => {
       context.emit('form-submit')
     }
+    const callback = (test:string | unknown) => {
+      console.log(test)
+    }
+    emitter.on('form-item-created', callback)
     return {
       submitForm
     }

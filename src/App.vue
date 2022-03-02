@@ -96,14 +96,14 @@ export default defineComponent({
     ValidateInput,
     ValidateForm
   },
-  setup () {
+  setup (props, context) {
     const inputRef = ref<any>()
-    const emailValue = ref('')
+    const emailValue = ref('123@123.com')
     const emailRules:RulesProp = [
       { type: 'required', message: '电子邮箱地址不能为空' },
       { type: 'email', message: '请输入正确的电子邮箱格式' }
     ]
-    const passedValue = ref('')
+    const passedValue = ref('123')
     const passedRules:RulesProp = [
       { type: 'required', message: '密码不能为空' }
     ]
