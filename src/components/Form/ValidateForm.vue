@@ -1,7 +1,7 @@
 <template>
   <form class="validate-form-container">
     <slot name="default"></slot>
-    <div class="submit-area" @click.prevent="submitForm">
+    <div class="submit-area" @mousedown.prevent="submitForm">
       <slot name="submit">
         <button type="submit" class="btn btn-primary">提交</button>
       </slot>
@@ -19,6 +19,8 @@ export default defineComponent({
   setup (props, context) {
     let funcArr: ValidateFunc[] = []
     const submitForm = () => {
+      console.log('funcArr', funcArr)
+
       const result = funcArr.map(func => func()).every(bool => bool)
       // 如果是true代表验证通过，false代表验证不通过
       context.emit('form-submit', result)
@@ -40,5 +42,7 @@ export default defineComponent({
 </script>
 
 <style>
-
+.submit-area{
+  display: inline-block;
+}
 </style>
