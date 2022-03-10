@@ -35,7 +35,7 @@ import { defineComponent, ref } from '@vue/runtime-core'
 import { useRouter } from 'vue-router'
 import ValidateForm from '@/components/Form/ValidateForm.vue'
 import ValidateInput, { RulesProp } from '@/components/Form/ValidateInput.vue'
-
+import { useStore } from 'vuex'
 export default defineComponent({
   name: 'Login',
   components: {
@@ -43,7 +43,7 @@ export default defineComponent({
     ValidateForm
   },
   setup () {
-    console.log('useRouter', useRouter)
+    const store = useStore()
     const router = useRouter()
     const inputRef = ref<any>()
     const emailValue = ref('')
@@ -58,7 +58,8 @@ export default defineComponent({
     const onSubmit = (result:boolean) => {
       console.log(result)
       if (result) {
-        router.push({ name: 'column', params: { id: '1' } })
+        router.push('/')
+        store.commit('login')
       }
     }
     return {
