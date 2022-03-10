@@ -1,15 +1,15 @@
 <template>
   <nav class="navbar navbar-dark bg-primary justify-content-between mb-4 px-4">
-    <a class="navbar-brand" href="#">杨肥肥专栏</a>
+    <span class="navbar-brand">杨肥肥专栏</span>
     <ul v-if="!user.isLogin" class="list-inline mb-0">
       <li class="list-inline-item"><a  class="btn btn-outline-light my-2" @click="toLogin">登录</a></li>
       <li class="list-inline-item"><a  class="btn btn-outline-light my-2">注册</a></li>
     </ul>
     <ul v-else class="list-inline mb-0">
       <Dropdown :title="`你好 ${user.name}`">
-        <DropdownItem><a class="dropdown-item" href="#">新建文章</a></DropdownItem>
-        <DropdownItem :disabled="true"><a class="dropdown-item" href="#">编辑资料</a></DropdownItem>
-        <DropdownItem><a class="dropdown-item" href="#">退出登录</a></DropdownItem>
+        <DropdownItem><router-link class="dropdown-item" to="/post">新建文章</router-link></DropdownItem>
+        <DropdownItem :disabled="true"><a class="dropdown-item" >编辑资料</a></DropdownItem>
+        <DropdownItem><a class="dropdown-item" >退出登录</a></DropdownItem>
       </Dropdown>
     </ul>
   </nav>
