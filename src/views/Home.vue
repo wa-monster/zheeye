@@ -5,7 +5,7 @@
 
 <script lang="ts">
 import ColumnList from '@/components/ColumnList.vue'
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { GlobalDataProps } from '../store'
 export default defineComponent({
@@ -16,6 +16,9 @@ export default defineComponent({
     const store = useStore<GlobalDataProps>()
     const list = computed(() => store.state.columns)
     const bigColLen = computed(() => store.getters.biggerColumnsLen)
+    onMounted(() => {
+      store.dispatch('fetchColumns')
+    })
     return {
       list,
       bigColLen

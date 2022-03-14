@@ -2,7 +2,7 @@
   <div class="column-detail-page w-75 mx-auto">
     <div class="column-info row mb-4 border-bottom pb-4 align-items-center" v-if="column">
       <div class="col-3 text-center">
-        <img :src="column.avatar" :alt="column.title" class="rounded-circle border w-100">
+        <img :src="column.avatar?.url" :alt="column.title" class="rounded-circle border w-100">
       </div>
       <div class="col-9">
         <h4>{{column.title}}</h4>
@@ -14,12 +14,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/runtime-core'
+import { defineComponent, toRaw } from '@vue/runtime-core'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
-import { testData, testPosts } from '@/testData'
 import PostList from '@/components/PostList.vue'
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 export default defineComponent({
   components: {
     PostList
@@ -27,10 +26,13 @@ export default defineComponent({
   setup () {
     const route = useRoute()
     const store = useStore()
-    // const currentId = Number(route.params.id)
-    const currentId = +(route.params.id)
+    const currentId = route.params.id
     const column = computed(() => store.getters.getColumnById(currentId))
     const list = computed(() => store.getters.getPostsById(currentId))
+    onMounted(() => {
+      store.dispatch('fetchColumn', currentId)
+      store.dispatch('fetchPosts', currentId)
+    })
     return {
       route,
       column,

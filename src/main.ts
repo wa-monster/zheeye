@@ -4,9 +4,14 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 const app = createApp(App)
-
-axios.get('/api/columns').then(res => {
-  console.log(res)
+axios.defaults.baseURL = '/api'
+axios.interceptors.request.use((config) => {
+  store.commit('setLoading', true)
+  return config
+})
+axios.interceptors.response.use(config => {
+  store.commit('setLoading', false)
+  return config
 })
 app.use(router)
 app.use(store)
