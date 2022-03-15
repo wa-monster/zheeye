@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <GlobalHeader :user="currentUser"></GlobalHeader>
-    <h1 v-if="isLoading">正在加载</h1>
+    <Loader v-if="isLoading" text="拼命加载中" :background="'rgba(0,0,0,.8)'"></Loader>
     <router-view></router-view>
   </div>
 </template>
@@ -11,11 +11,12 @@ import { computed, defineComponent } from 'vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useStore } from 'vuex'
 import GlobalHeader from '@/components/GlobalHeader.vue'
-
+import Loader from '@/components/Loader.vue'
 export default defineComponent({
   name: 'App',
   components: {
-    GlobalHeader
+    GlobalHeader,
+    Loader
   },
   setup () {
     const store = useStore()

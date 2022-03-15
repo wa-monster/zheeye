@@ -55,12 +55,13 @@ export default defineComponent({
     const passedRules:RulesProp = [
       { type: 'required', message: '密码不能为空' }
     ]
-    const onSubmit = (result:boolean) => {
-      console.log(result)
-      if (result) {
-        router.push('/')
-        store.commit('login')
+    const onSubmit = async () => {
+      const payload = {
+        email: emailValue.value,
+        password: passedValue.value
       }
+      const res = await store.dispatch('fetchLogin', payload)
+      console.log(res)
     }
     return {
       emailValue,
